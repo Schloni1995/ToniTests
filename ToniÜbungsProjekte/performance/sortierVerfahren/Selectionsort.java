@@ -1,6 +1,6 @@
 package performance.sortierVerfahren;
 
-public class BubbleSort
+public class Selectionsort
 {
 	public static final double MILLI = Math.pow(10, -3);
 
@@ -8,29 +8,25 @@ public class BubbleSort
 	{
 		final int[] liste = new ArrayCreator(2000, 1, Integer.MAX_VALUE).getNewArray();
 		final long start = System.currentTimeMillis();
-		bubblesort(liste);
+		selectionsort(liste);
 		System.out.println((System.currentTimeMillis() - start) * MILLI);
 
 		for (final int element : liste)
 			System.out.println(element + " ");
+
 	}
 
-	public static void bubblesort(final int[] x)
+	public static int[] selectionsort(final int[] sortieren)
 	{
-		boolean unsortiert = true;
-		int temp;
-
-		while (unsortiert)
-		{
-			unsortiert = false;
-			for (int i = 0; i < x.length - 1; i++)
-				if (x[i] > x[i + 1])
+		for (int i = 0; i < sortieren.length - 1; i++)
+			for (int j = i + 1; j < sortieren.length; j++)
+				if (sortieren[i] > sortieren[j])
 				{
-					temp = x[i];
-					x[i] = x[i + 1];
-					x[i + 1] = temp;
-					unsortiert = true;
+					final int temp = sortieren[i];
+					sortieren[i] = sortieren[j];
+					sortieren[j] = temp;
 				}
-		}
+
+		return sortieren;
 	}
 }
