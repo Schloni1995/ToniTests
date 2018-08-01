@@ -21,7 +21,7 @@ public class HotKeyManager implements KeyEventDispatcher
 		//
 		// }
 
-		if (evt.getKeyCode() == KeyEvent.VK_F1 && evt.getID() == KeyEvent.KEY_PRESSED)
+		if ((evt.getKeyCode() == KeyEvent.VK_F1) && (evt.getID() == KeyEvent.KEY_PRESSED))
 			gui.setDebugConsole(new DebugConsole());
 		return false;
 	}

@@ -4,14 +4,15 @@ import java.io.File;
 
 public class PfadDurchsucher
 {
-	public long anzDateien, anzOrdner;
-	public long gesamtAnzZeilen, gesamtAnzZeichen;
-	private final String quellpfad;
-
 	public static void main(final String[] args)
 	{
 		new PfadDurchsucher(Statics.startPath);
 	}
+
+	public long anzDateien, anzOrdner;
+	public long gesamtAnzZeilen, gesamtAnzZeichen;
+
+	private final String quellpfad;
 
 	public PfadDurchsucher(final String quellpfad)
 	{
@@ -23,9 +24,22 @@ public class PfadDurchsucher
 
 		end = System.nanoTime();
 
-		if (Gui.debugMode) Gui.dc.toConsole("PfadDurchsucher: " + (end - start) * Statics.NANO);
+		if (Gui.debugMode) Gui.dc.toConsole("PfadDurchsucher: " + ((end - start) * Statics.NANO));
 		else
-			System.out.println("PfadDurchsucher: " + (end - start) * Statics.NANO);
+			System.out.println("PfadDurchsucher: " + ((end - start) * Statics.NANO));
+	}
+
+	/** @return the anzDateien */
+	public long getAnzDateien()
+	{
+		return anzDateien;
+	}
+
+	/** @return the anzOrdner */
+	public long getAnzOrdner()
+	{
+
+		return anzOrdner;
 	}
 
 	private void getDir(final File[] path)
@@ -73,17 +87,11 @@ public class PfadDurchsucher
 			}
 	}
 
-	/** @return the anzDateien */
-	public long getAnzDateien()
-	{
-		return anzDateien;
-	}
-
-	/** @return the anzOrdner */
-	public long getAnzOrdner()
+	/** @return the gesamtAnzZeichen */
+	public long getGesamtAnzZeichen()
 	{
 
-		return anzOrdner;
+		return gesamtAnzZeichen;
 	}
 
 	/** @return the gesamtAnzZeilen */
@@ -91,13 +99,6 @@ public class PfadDurchsucher
 	{
 
 		return gesamtAnzZeilen;
-	}
-
-	/** @return the gesamtAnzZeichen */
-	public long getGesamtAnzZeichen()
-	{
-
-		return gesamtAnzZeichen;
 	}
 
 	/** @return the quellpfad */

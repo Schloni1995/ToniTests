@@ -9,14 +9,16 @@ import javax.swing.JTextArea;
 public class DebugConsole extends JDialog implements Runnable
 {
 	private static final long serialVersionUID = 5673308756593988158L;
-	private final JScrollPane scrollPane;
-	private final JTextArea textArea;
 
 	public static void main(final String[] args)
 	{
 		new DebugConsole().setVisible(true);
 		;
 	}
+
+	private final JScrollPane scrollPane;
+
+	private final JTextArea textArea;
 
 	public DebugConsole()
 	{
@@ -32,17 +34,17 @@ public class DebugConsole extends JDialog implements Runnable
 		pack();
 	}
 
-	public void toConsole(final String msg)
-	{
-		textArea.append(msg + "\r\n");
-		textArea.setCaretPosition(textArea.getText().length());
-		System.out.println(msg);
-	}
-
 	@Override
 	public void run()
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	public void toConsole(final String msg)
+	{
+		textArea.append(msg + "\r\n");
+		textArea.setCaretPosition(textArea.getText().length());
+		System.out.println(msg);
 	}
 }

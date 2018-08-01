@@ -7,26 +7,6 @@ import java.io.IOException;
 public class TextCounter
 {
 
-	public static int getZeilenAnzahl(final String quellpfad)// Methode für
-																// Zeilenanzahl
-	{
-		String zeile;
-		int anzahl_Zeilen = 0;
-		try
-		{
-			final BufferedReader in = new BufferedReader(new FileReader(quellpfad));
-			while ((zeile = in.readLine()) != null)
-				if (zeile.trim().length() > 0) anzahl_Zeilen++;
-			in.close();
-		}
-		catch (final IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		return anzahl_Zeilen;
-	}
-
 	public static int getZeichenAnzahl(final String quellpfad)
 	{
 		String zeile;
@@ -44,5 +24,25 @@ public class TextCounter
 		}
 
 		return anzahl_Zeichen;
+	}
+
+	public static int getZeilenAnzahl(final String quellpfad)// Methode fï¿½r
+																// Zeilenanzahl
+	{
+		String zeile;
+		int anzahl_Zeilen = 0;
+		try
+		{
+			final BufferedReader in = new BufferedReader(new FileReader(quellpfad));
+			while ((zeile = in.readLine()) != null)
+				if (zeile.trim().length() > 0) anzahl_Zeilen++;
+			in.close();
+		}
+		catch (final IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return anzahl_Zeilen;
 	}
 }
