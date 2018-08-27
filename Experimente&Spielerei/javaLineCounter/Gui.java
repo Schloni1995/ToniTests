@@ -26,20 +26,6 @@ import javax.swing.border.EmptyBorder;
 public class Gui extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPanel;
-	private JPanel inputPanel;
-	private JPanel outputPanel;
-	private JTextField pathTF;
-	private JButton browseButton;
-	private JLabel pathLabel;
-	private JButton countButton;
-	private JLabel outputLabel;
-	private JButton saveTXTButton;
-	private PfadDurchsucher pd;
-	private JScrollBar scrollBar;
-	private JPanel scrollTfPanel;
-	private JPanel progressPanel;
-	private JProgressBar progressBar;
 	public static DebugConsole dc;
 	public static boolean debugMode;
 
@@ -55,6 +41,22 @@ public class Gui extends JFrame
 		EventQueue.invokeLater(run);
 	}
 
+	private JPanel contentPanel;
+	private JPanel inputPanel;
+	private JPanel outputPanel;
+	private JTextField pathTF;
+	private JButton browseButton;
+	private JLabel pathLabel;
+	private JButton countButton;
+	private JLabel outputLabel;
+	private JButton saveTXTButton;
+	private PfadDurchsucher pd;
+	private JScrollBar scrollBar;
+	private JPanel scrollTfPanel;
+	private JPanel progressPanel;
+
+	private JProgressBar progressBar;
+
 	/** Create the frame. */
 	public Gui()
 	{
@@ -68,65 +70,14 @@ public class Gui extends JFrame
 
 	}
 
-	@Override
-	public void pack()
+	public long directoryCount(final Path dir) throws IOException
 	{
-		super.pack();
-		setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (getSize().width / 2),
-				(Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (getSize().height / 2));
+		return Files.walk(dir).parallel().filter(p -> p.toFile().isDirectory()).count() - 1;
 	}
 
-	public JPanel getContentPanel()
+	public long fileCount(final Path dir) throws IOException
 	{
-		if (contentPanel == null)
-		{
-			contentPanel = new JPanel();
-			contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-			contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-			contentPanel.add(getInputPanel());
-			contentPanel.add(getProgressPanel());
-			contentPanel.add(getOutputPanel());
-		}
-		return contentPanel;
-	}
-
-	public JPanel getInputPanel()
-	{
-		if (inputPanel == null)
-		{
-			inputPanel = new JPanel();
-			inputPanel.add(getPathLabel());
-			inputPanel.add(getScrollTfPanel());
-			inputPanel.add(getBrowseButton());
-			inputPanel.add(getCountButton());
-		}
-		return inputPanel;
-	}
-
-	public JPanel getOutputPanel()
-	{
-		if (outputPanel == null)
-		{
-			outputPanel = new JPanel();
-			outputPanel.setLayout(new BorderLayout(0, 0));
-			outputPanel.add(getOutputLabel());
-			outputPanel.add(getSaveTXTButton(), BorderLayout.SOUTH);
-			outputPanel.setVisible(false);
-		}
-		return outputPanel;
-	}
-
-	JTextField getPathTF()
-	{
-		if (pathTF == null)
-		{
-			pathTF = new JTextField(20);
-			pathTF.setText(Statics.javaPath);
-			// pathTF.setText(Statics.startPath);
-			// pathTF.setText(Statics.kotlinPath);
-		}
-
-		return pathTF;
+		return Files.walk(dir).parallel().filter(p -> p.toFile().isFile()).count();
 	}
 
 	private JButton getBrowseButton()
@@ -157,10 +108,18 @@ public class Gui extends JFrame
 		return browseButton;
 	}
 
-	private JLabel getPathLabel()
+	public JPanel getContentPanel()
 	{
-		if (pathLabel == null) pathLabel = new JLabel("Pfad:");
-		return pathLabel;
+		if (contentPanel == null)
+		{
+			contentPanel = new JPanel();
+			contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+			contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+			contentPanel.add(getInputPanel());
+			contentPanel.add(getProgressPanel());
+			contentPanel.add(getOutputPanel());
+		}
+		return contentPanel;
 	}
 
 	private JButton getCountButton()
@@ -191,20 +150,71 @@ public class Gui extends JFrame
 		return countButton;
 	}
 
-	public long directoryCount(final Path dir) throws IOException
+	public JPanel getInputPanel()
 	{
-		return Files.walk(dir).parallel().filter(p -> p.toFile().isDirectory()).count() - 1;
-	}
-
-	public long fileCount(final Path dir) throws IOException
-	{
-		return Files.walk(dir).parallel().filter(p -> p.toFile().isFile()).count();
+		if (inputPanel == null)
+		{
+			inputPanel = new JPanel();
+			inputPanel.add(getPathLabel());
+			inputPanel.add(getScrollTfPanel());
+			inputPanel.add(getBrowseButton());
+			inputPanel.add(getCountButton());
+		}
+		return inputPanel;
 	}
 
 	private JLabel getOutputLabel()
 	{
 		if (outputLabel == null) outputLabel = new JLabel("");
 		return outputLabel;
+	}
+
+	public JPanel getOutputPanel()
+	{
+		if (outputPanel == null)
+		{
+			outputPanel = new JPanel();
+			outputPanel.setLayout(new BorderLayout(0, 0));
+			outputPanel.add(getOutputLabel());
+			outputPanel.add(getSaveTXTButton(), BorderLayout.SOUTH);
+			outputPanel.setVisible(false);
+		}
+		return outputPanel;
+	}
+
+	private JLabel getPathLabel()
+	{
+		if (pathLabel == null) pathLabel = new JLabel("Pfad:");
+		return pathLabel;
+	}
+
+	JTextField getPathTF()
+	{
+		if (pathTF == null)
+		{
+			pathTF = new JTextField(20);
+			pathTF.setText(Statics.javaPath);
+			// pathTF.setText(Statics.startPath);
+			// pathTF.setText(Statics.kotlinPath);
+		}
+
+		return pathTF;
+	}
+
+	private JProgressBar getProgressBar()
+	{
+		if (progressBar == null) progressBar = new JProgressBar();
+		return progressBar;
+	}
+
+	private JPanel getProgressPanel()
+	{
+		if (progressPanel == null)
+		{
+			progressPanel = new JPanel();
+			progressPanel.add(getProgressBar());
+		}
+		return progressPanel;
 	}
 
 	private JButton getSaveTXTButton()
@@ -264,20 +274,12 @@ public class Gui extends JFrame
 		return scrollTfPanel;
 	}
 
-	private JPanel getProgressPanel()
+	@Override
+	public void pack()
 	{
-		if (progressPanel == null)
-		{
-			progressPanel = new JPanel();
-			progressPanel.add(getProgressBar());
-		}
-		return progressPanel;
-	}
-
-	private JProgressBar getProgressBar()
-	{
-		if (progressBar == null) progressBar = new JProgressBar();
-		return progressBar;
+		super.pack();
+		setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (getSize().width / 2),
+				(Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (getSize().height / 2));
 	}
 
 	public void setDebugConsole(final DebugConsole dc)

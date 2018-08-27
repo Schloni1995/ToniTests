@@ -2,7 +2,7 @@ package Sortierverfahren;
 
 public class Sorts
 {
-	static int temporär;
+	static int temporÃ¤r;
 	int[] unsortiert;
 	int[] zuSortieren;
 	int[] sortiert;
@@ -23,14 +23,14 @@ public class Sorts
 	// {
 	// for (int i = 1; i < sortieren.length; i++)
 	// {
-	// temporär = sortieren[i];
+	// temporï¿½r = sortieren[i];
 	// int j = i;
-	// while (j > 0 && sortieren[j - 1] > temporär)
+	// while (j > 0 && sortieren[j - 1] > temporï¿½r)
 	// {
 	// sortieren[j] = sortieren[j - 1];
 	// j--;
 	// }
-	// sortieren[j] = temporär;
+	// sortieren[j] = temporï¿½r;
 	// System.out.println(i);
 	// }
 	// return sortieren;
@@ -56,9 +56,9 @@ public class Sorts
 	// if (sortiert[i] > sortiert[j])
 	// {
 	// int temp = sortiert[i];
-	// //Das ist unser Zielort für die kleinste
+	// //Das ist unser Zielort fï¿½r die kleinste
 	// sortiert[i] = sortiert[j];
-	// //Das ist unser Zielort für ausgewechselte Zahl
+	// //Das ist unser Zielort fï¿½r ausgewechselte Zahl
 	// sortiert[j] = temp;
 	// }
 	// }
@@ -70,16 +70,16 @@ public class Sorts
 	// BUBBLESORT
 	// public static int[] bubblesort(int[]zuSortieren)
 	// {
-	// int temporär;
+	// int temporï¿½r;
 	// for(int i=1; i<zuSortieren.length; i++)
 	// {
 	// for(int j=0; j<zusortieren.length-i; j++)
 	// {
 	// if(zuSortieren[j]>zuSortieren[j+1])
 	// {
-	// temporär=zuSortieren[j];
+	// temporï¿½r=zuSortieren[j];
 	// zuSortieren[j]=zuSortieren[j+1];
-	// zuSortieren[j+1]=temporär;
+	// zuSortieren[j+1]=temporï¿½r;
 	// }
 	//
 	// }
