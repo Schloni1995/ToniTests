@@ -56,6 +56,7 @@ public class WorkingTime extends JFrame
 	private int persNr;
 	private JPopupMenu popUp;
 
+
 	public WorkingTime(final int personalNummer)
 	{
 		setIconImage(Toolkit.getDefaultToolkit()
@@ -183,7 +184,8 @@ public class WorkingTime extends JFrame
 			final String text = new String(persNrTextField.getText()).trim();
 			if (text.matches("[0-9]+"))
 			{
-				final String[] nameVorname = new SQLqueryExec().getPersonToNumber(Integer.parseInt(text));
+				new SQLqueryExec();
+				final String[] nameVorname = SQLqueryExec.getPersonToNumber(Integer.parseInt(text));
 				persnrLabel.setText(nameVorname[0] + " " + nameVorname[1]);
 			}
 		}
@@ -205,7 +207,8 @@ public class WorkingTime extends JFrame
 					final String text = new String(((JTextField) (e.getSource())).getText());
 					if (text.matches("[0-9]+"))
 					{
-						final String[] nameVorname = new SQLqueryExec().getPersonToNumber(Integer.parseInt(text));
+						new SQLqueryExec();
+						final String[] nameVorname = SQLqueryExec.getPersonToNumber(Integer.parseInt(text));
 						persnrLabel.setText(nameVorname[0] + " " + nameVorname[1]);
 					}
 					refreshTable(e);
@@ -256,13 +259,15 @@ public class WorkingTime extends JFrame
 	{
 		final int month = Integer.parseInt(new SimpleDateFormat("MM").format(new Date()));
 		final int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
-		values = new SQLqueryExec().getTimeTableValues(month, persNr, year);
+		new SQLqueryExec();
+		values = SQLqueryExec.getTimeTableValues(month, persNr, year);
 		return values;
 	}
 
 	public Object[][] getRLValues(final int monat, final int persNr, final int years)
 	{
-		values = new SQLqueryExec().getTimeTableValues(monat, persNr, years);
+		new SQLqueryExec();
+		values = SQLqueryExec.getTimeTableValues(monat, persNr, years);
 		return values;
 	}
 
@@ -294,7 +299,8 @@ public class WorkingTime extends JFrame
 			dialog.setVisible(true);
 
 			final JTable timeIXTable = new JTable();
-			final String[][] timeIXdata = new SQLqueryExec().getTimeTableValuesByTimeIX(month, persNr, year);
+			new SQLqueryExec();
+			final String[][] timeIXdata = SQLqueryExec.getTimeTableValuesByTimeIX(month, persNr, year);
 			timeIXTable.setModel(new RTTableModel(new String[] { "Datum", "kommtart", "Akommt", "gehtart",
 					"ÜberstundenInMin", "Überstunden", "Abwesenheit", "AGeht" }, timeIXdata));
 			timeIXTable.setDefaultRenderer(Object.class, new MeinRendererAllgemein(""));

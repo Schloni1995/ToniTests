@@ -15,10 +15,12 @@ public class SQLqueryExec
 {
 	public static void main(final String[] args)
 	{
-		new SQLqueryExec().getTimeTableValuesByTimeIX(12, 135, 2017);
+		SQLqueryExec.getTimeTableValues(9, 135, 2018);
+		SQLqueryExec.getTimeTableValuesByTimeIX(9, 135, 2018);
+		SQLqueryExec.getTimexTagValues("23.09.2018", 135);
 	}
 
-	public String[] getPersonToNumber(final int nr)
+	public static String[] getPersonToNumber(final int nr)
 	{
 		final Connection con = new RTConnection().getConnection();
 		ResultSet rs = null;
@@ -46,8 +48,9 @@ public class SQLqueryExec
 		return new String[] { name, vorname };
 	}
 
-	public String[][] getTimeTableValues(final int mon, final int pers, final int year)
+	public static String[][] getTimeTableValues(final int mon, final int pers, final int year)
 	{
+		//TODO Manuelles Dazurechnen der Weggelassenen Pause
 		final Connection con = new RTConnection().getConnection();
 		ResultSet rs = null;
 		Statement stmt = null;
@@ -57,12 +60,29 @@ public class SQLqueryExec
 		final ArrayList<String> ueberstundeninMin = new ArrayList<>();
 		try
 		{
-			final String qry = "use RimeTool;" + " SELECT" + "        Datum,"
-					+ "        DATENAME(WEEKDAY,Datum) as Wochentag," + "        Zu25UeS as Überstunden,"
-					+ "        ROUND(Zu25UeS*(0.6),2)*100 as ÜberstundenInMin" + "    FROM" + "        RimeLohn "
-					+ "    where" + "        Monat = '" + new DecimalFormat("00").format(mon) + "' "
-					+ "        and Jahr = '" + year + "' " + "        and Persnr = '" + pers + "' "
-					+ "        and Zeit1 <> '_null' " + "    order by Datum";
+			final String qry = "use RimeTool;\r\n" + 
+					"with zeit as (\r\n" + 
+					"SELECT\r\n" + 
+					"	Datum,\r\n" + 
+					"	DATENAME(WEEKDAY,\r\n" + 
+					"	Datum) as Wochentag,\r\n" + 
+					"	case when len(Zeit5)=0 and Pause=60 then (Zu25UeS+0.5) else Zu25UeS end as Überstunden,\r\n" + 
+					"	ROUND(case when LEN(Zeit5) = 0 and Pause=60 then (Zu25UeS+0.5) else Zu25UeS end *(0.6), 2)*100 as ÜberstundenInMin\r\n" + 
+					"FROM\r\n" + 
+					"	RimeLohn\r\n" + 
+					"where\r\n" + 
+					"	Monat = '"+new DecimalFormat("00").format(mon)+"'\r\n" + 
+					"	and Jahr = '"+year+"'\r\n" + 
+					"	and Persnr = '"+pers+"'\r\n" + 
+					"	and Zeit1 <> '_null' \r\n" + 
+					") \r\n" + 
+					"\r\n" + 
+					"select\r\n" + 
+					"	*\r\n" + 
+					"from\r\n" + 
+					"	zeit\r\n" + 
+					"order by\r\n" + 
+					"	Datum";
 
 			System.out.println("getTime" + "TableValues: " + qry);
 			stmt = con.createStatement();
@@ -94,7 +114,7 @@ public class SQLqueryExec
 		return values;
 	}
 
-	public String[][] getTimeTableValuesByTimeIX(final int mon, final int pers, final int year)
+	public static String[][] getTimeTableValuesByTimeIX(final int mon, final int pers, final int year)
 	{
 		final Connection con = new RTConnection().getConnection();
 		ResultSet rs = null;
@@ -165,7 +185,7 @@ public class SQLqueryExec
 		return values;
 	}
 
-	public String[][] getTimexTagValues(final String datum, final int persNr)
+	public static String[][] getTimexTagValues(final String datum, final int persNr)
 	{
 		final ArrayList<String> v1 = new ArrayList<>();
 		final ArrayList<String> v2 = new ArrayList<>();
@@ -182,7 +202,7 @@ public class SQLqueryExec
 
 		try
 		{
-			System.out.println();
+			System.out.println("getTimexTagValues: " + qry);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(qry);
 			while (rs.next())

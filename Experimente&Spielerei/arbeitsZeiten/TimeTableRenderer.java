@@ -49,7 +49,7 @@ public class TimeTableRenderer extends DefaultTableCellRenderer
 		if (ueberstunden < 0.0) setForeground(RTColors.getRot().darker());
 		else if (ueberstunden > 0.0) setForeground(RTColors.getGruen().darker());
 		else
-			setForeground(Color.YELLOW);
+			setForeground(Color.BLUE);
 
 	}
 

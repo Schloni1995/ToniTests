@@ -83,7 +83,7 @@ public class OneDayWorkingTime extends RTDialog
 
 		try
 		{
-			System.out.println();
+			System.out.println(qry);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(qry);
 			while (rs.next())
