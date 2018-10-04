@@ -3,8 +3,6 @@
 	<classpathentry kind="src" path="Experimente&amp;Spielerei"/>
 	<classpathentry kind="src" path="ToniÜbungsProjekte"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="con" path="org.jetbrains.kotlin.core.KOTLIN_CONTAINER"/>
-	<classpathentry kind="var" path="RTModuls"/>
 	<classpathentry kind="var" path="hibernate-core-5.2.12.Final"/>
 	<classpathentry kind="var" path="sqljdbc4-4.0"/>
 	<classpathentry kind="output" path="bin"/>
