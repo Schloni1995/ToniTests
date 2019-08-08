@@ -50,7 +50,7 @@ public class SQLqueryExec
 
 	public static String[][] getTimeTableValues(final int mon, final int pers, final int year)
 	{
-		//TODO Manuelles Dazurechnen der Weggelassenen Pause
+		// TODO Manuelles Dazurechnen der Weggelassenen Pause
 		final Connection con = new RTConnection().getConnection();
 		ResultSet rs = null;
 		Statement stmt = null;
@@ -60,29 +60,14 @@ public class SQLqueryExec
 		final ArrayList<String> ueberstundeninMin = new ArrayList<>();
 		try
 		{
-			final String qry = "use RimeTool;\r\n" + 
-					"with zeit as (\r\n" + 
-					"SELECT\r\n" + 
-					"	Datum,\r\n" + 
-					"	DATENAME(WEEKDAY,\r\n" + 
-					"	Datum) as Wochentag,\r\n" + 
-					"	case when len(Zeit5)=0 and Pause=60 then (Zu25UeS+0.5) else Zu25UeS end as Überstunden,\r\n" + 
-					"	ROUND(case when LEN(Zeit5) = 0 and Pause=60 then (Zu25UeS+0.5) else Zu25UeS end *(0.6), 2)*100 as ÜberstundenInMin\r\n" + 
-					"FROM\r\n" + 
-					"	RimeLohn\r\n" + 
-					"where\r\n" + 
-					"	Monat = '"+new DecimalFormat("00").format(mon)+"'\r\n" + 
-					"	and Jahr = '"+year+"'\r\n" + 
-					"	and Persnr = '"+pers+"'\r\n" + 
-					"	and Zeit1 <> '_null' \r\n" + 
-					") \r\n" + 
-					"\r\n" + 
-					"select\r\n" + 
-					"	*\r\n" + 
-					"from\r\n" + 
-					"	zeit\r\n" + 
-					"order by\r\n" + 
-					"	Datum";
+			final String qry = "use RimeTool;\r\n" + "with zeit as (\r\n" + "SELECT\r\n" + "	Datum,\r\n"
+					+ "	DATENAME(WEEKDAY,\r\n" + "	Datum) as Wochentag,\r\n"
+					+ "	case when len(Zeit5)=0 and Pause=60 then (Zu25UeS+0.5) else Zu25UeS end as Überstunden,\r\n"
+					+ "	ROUND(case when LEN(Zeit5) = 0 and Pause=60 then (Zu25UeS+0.5) else Zu25UeS end *(0.6), 2)*100 as ÜberstundenInMin\r\n"
+					+ "FROM\r\n" + "	RimeLohn\r\n" + "where\r\n" + "	Monat = '" + new DecimalFormat("00").format(mon)
+					+ "'\r\n" + "	and Jahr = '" + year + "'\r\n" + "	and Persnr = '" + pers + "'\r\n"
+					+ "	and Zeit1 <> '_null' \r\n" + ") \r\n" + "\r\n" + "select\r\n" + "	*\r\n" + "from\r\n"
+					+ "	zeit\r\n" + "order by\r\n" + "	Datum";
 
 			System.out.println("getTime" + "TableValues: " + qry);
 			stmt = con.createStatement();

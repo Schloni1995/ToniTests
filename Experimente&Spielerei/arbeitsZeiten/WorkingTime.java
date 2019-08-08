@@ -56,7 +56,6 @@ public class WorkingTime extends JFrame
 	private int persNr;
 	private JPopupMenu popUp;
 
-
 	public WorkingTime(final int personalNummer)
 	{
 		setIconImage(Toolkit.getDefaultToolkit()

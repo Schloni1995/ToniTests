@@ -18,7 +18,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JScrollBar;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -190,7 +189,7 @@ public class Gui extends JFrame
 		{
 			pathTF = new JTextField(20);
 			pathTF.setText(Statics.startPath);
-			
+
 		}
 
 		return pathTF;
