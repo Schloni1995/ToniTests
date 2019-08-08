@@ -53,14 +53,11 @@ public class Gui extends JFrame
 	private PfadDurchsucher pd;
 	private JScrollBar scrollBar;
 	private JPanel scrollTfPanel;
-	private JPanel progressPanel;
-
-	private JProgressBar progressBar;
 
 	/** Create the frame. */
 	public Gui()
 	{
-		setTitle("LineCounter");
+		setTitle("JavaProjektStatist - LineCounter");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(getContentPanel());
 		pack();
@@ -116,7 +113,6 @@ public class Gui extends JFrame
 			contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 			contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 			contentPanel.add(getInputPanel());
-			contentPanel.add(getProgressPanel());
 			contentPanel.add(getOutputPanel());
 		}
 		return contentPanel;
@@ -188,33 +184,16 @@ public class Gui extends JFrame
 		return pathLabel;
 	}
 
-	JTextField getPathTF()
+	private JTextField getPathTF()
 	{
 		if (pathTF == null)
 		{
 			pathTF = new JTextField(20);
-			pathTF.setText(Statics.javaPath);
-			// pathTF.setText(Statics.startPath);
-			// pathTF.setText(Statics.kotlinPath);
+			pathTF.setText(Statics.startPath);
+			
 		}
 
 		return pathTF;
-	}
-
-	private JProgressBar getProgressBar()
-	{
-		if (progressBar == null) progressBar = new JProgressBar();
-		return progressBar;
-	}
-
-	private JPanel getProgressPanel()
-	{
-		if (progressPanel == null)
-		{
-			progressPanel = new JPanel();
-			progressPanel.add(getProgressBar());
-		}
-		return progressPanel;
 	}
 
 	private JButton getSaveTXTButton()
@@ -226,8 +205,7 @@ public class Gui extends JFrame
 			{
 				if (pd != null)
 				{
-					// TODO
-					final JFileChooser fc = new JFileChooser("M:\\BA\\Bachelorarbeit\\Recherche\\Vergleich\\Quelltext");
+					final JFileChooser fc = new JFileChooser("M:\\Softwareentwicklung");
 					final int option = fc.showSaveDialog(Gui.this);
 
 					if (option == JFileChooser.APPROVE_OPTION)
