@@ -1,4 +1,4 @@
-package CMDzugriff;
+package imageWatermarker;
 
 import java.awt.Desktop;
 import java.io.File;
